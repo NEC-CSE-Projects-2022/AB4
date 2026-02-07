@@ -1,0 +1,20 @@
+/* small UI adjustments for chips and suggestion items */
+.genre-chip {
+  background: white;
+  transition: background .15s ease, transform .08s ease;
+}
+.genre-chip.active {
+  background: #ffedd5; /* light orange */
+  border-color: #fb923c;
+  box-shadow: 0 6px 12px rgba(251,146,60,0.08);
+  transform: translateY(-2px);
+}
+
+/* suggestion item styles */
+#suggestions .suggestion-item {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+#suggestions .suggestion-item:hover {
+  background: #fff7ed;
+}

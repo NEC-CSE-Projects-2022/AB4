@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Movie Recommender — Register</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white border-b border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    
+    <div class="flex items-center gap-3">
+      <div class="text-2xl">🎬</div>
+      <div class="text-lg font-semibold">Movie Recommender</div>
+    </div>
+
+    <div class="flex items-center gap-5 text-sm">
+
+      <a href="{{ url_for('index') }}" class="hover:text-orange-600">Home</a>
+      <a href="{{ url_for('about') }}" class="hover:text-orange-600">About</a>
+      <a href="{{ url_for('contact') }}" class="hover:text-orange-600">Contact</a>
+
+      {% if not username %}
+        <!-- ✅ Show these ONLY when user is NOT logged in -->
+        <a href="{{ url_for('login') }}" class="hover:text-orange-600">Login</a>
+        <a href="{{ url_for('register') }}" class="hover:text-orange-600">Register</a>
+      {% endif %}
+
+      {% if username %}
+        <!-- ✅ Show these ONLY when user IS logged in -->
+        <span class="ml-3 text-gray-500">Hi, {{ username }}</span>
+        <a href="{{ url_for('logout') }}" class="ml-2 text-orange-600 hover:underline">Logout</a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</nav>
+
+
+  <!-- Split Screen -->
+  <div class="min-h-[80vh] grid grid-cols-1 md:grid-cols-2">
+    <div class="hidden md:block bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1600&auto=format&fit=crop');"></div>
+    <div class="flex items-center justify-center p-8">
+      <form method="POST" class="w-full max-w-sm bg-white p-6 rounded-2xl shadow border border-gray-200">
+        <h1 class="text-2xl font-semibold mb-5">Create an account</h1>
+
+        {% if error %}
+          <div class="mb-4 text-sm text-red-600">{{ error }}</div>
+        {% endif %}
+
+        <label class="block text-sm mb-1">Full Name</label>
+        <input name="name" required class="w-full border p-2 rounded-lg mb-4 focus:ring-2 focus:ring-orange-300"/>
+
+        <label class="block text-sm mb-1">Email</label>
+        <input name="email" type="email" required class="w-full border p-2 rounded-lg mb-4 focus:ring-2 focus:ring-orange-300"/>
+
+        <label class="block text-sm mb-1">Password</label>
+        <input name="password" type="password" required class="w-full border p-2 rounded-lg mb-6 focus:ring-2 focus:ring-orange-300"/>
+
+        <button class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600">Register</button>
+
+        <p class="text-sm text-gray-600 mt-4">
+          Already have an account? <a href="{{ url_for('login') }}" class="text-orange-600 hover:underline">Login</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

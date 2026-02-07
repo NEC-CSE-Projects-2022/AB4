@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Movie Recommender — About</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white border-b border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    
+    <div class="flex items-center gap-3">
+      <div class="text-2xl">🎬</div>
+      <div class="text-lg font-semibold">Movie Recommender</div>
+    </div>
+
+    <div class="flex items-center gap-5 text-sm">
+
+      <a href="{{ url_for('index') }}" class="hover:text-orange-600">Home</a>
+      <a href="{{ url_for('about') }}" class="hover:text-orange-600">About</a>
+      <a href="{{ url_for('contact') }}" class="hover:text-orange-600">Contact</a>
+
+      {% if not username %}
+        <!-- ✅ Show these ONLY when user is NOT logged in -->
+        <a href="{{ url_for('login') }}" class="hover:text-orange-600">Login</a>
+        <a href="{{ url_for('register') }}" class="hover:text-orange-600">Register</a>
+      {% endif %}
+
+      {% if username %}
+        <!-- ✅ Show these ONLY when user IS logged in -->
+        <span class="ml-3 text-gray-500">Hi, {{ username }}</span>
+        <a href="{{ url_for('logout') }}" class="ml-2 text-orange-600 hover:underline">Logout</a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</nav>
+
+  <div class="max-w-5xl mx-auto py-10 px-6">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-semibold">About Us</h1>
+      <p class="mt-2 text-gray-600 text-lg">We build clean, fast, and useful tools for discovering films you’ll love.</p>
+    </div>
+
+ <!-- Team Cards -->
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  {% for m in team %}
+  <div class="bg-white rounded-2xl shadow border border-gray-200 p-5 text-center">
+
+    <!-- ✅ Circular Team Photo -->
+    <div class="mx-auto w-20 h-20 rounded-full overflow-hidden border-2 border-orange-400 shadow mb-3">
+      <img src="{{ m.image }}" alt="{{ m.name }}" class="w-full h-full object-cover">
+    </div>
+
+    <h3 class="font-semibold text-lg">{{ m.name }}</h3>
+    <p class="text-sm text-orange-600 mt-1 font-medium">{{ m.role }}</p>
+    <p class="text-sm text-gray-700 mt-1 font-semibold">{{ m.roll_number }}</p>
+    <p class="text-sm text-gray-600 mt-2 leading-relaxed">{{ m.bio }}</p>
+
+  </div>
+  {% endfor %}
+</div>
+
+
+    <div class="mt-10 bg-white p-6 rounded-2xl shadow border border-gray-200">
+      <h2 class="text-xl font-semibold">Our Mission</h2>
+      <p class="text-gray-700 mt-2">Deliver high-quality recommendations with a delightful user experience, using modern web engineering and practical ML.</p>
+    </div>
+  </div>
+</body>
+</html>

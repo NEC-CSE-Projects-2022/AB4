@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Movie Recommender — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out both;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white border-b border-gray-200">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+    
+    <div class="flex items-center gap-3">
+      <div class="text-2xl">🎬</div>
+      <div class="text-lg font-semibold">Movie Recommender</div>
+    </div>
+
+    <div class="flex items-center gap-5 text-sm">
+
+      <a href="{{ url_for('index') }}" class="hover:text-orange-600">Home</a>
+      <a href="{{ url_for('about') }}" class="hover:text-orange-600">About</a>
+      <a href="{{ url_for('contact') }}" class="hover:text-orange-600">Contact</a>
+
+      {% if not username %}
+        <!-- ✅ Show these ONLY when user is NOT logged in -->
+        <a href="{{ url_for('login') }}" class="hover:text-orange-600">Login</a>
+        <a href="{{ url_for('register') }}" class="hover:text-orange-600">Register</a>
+      {% endif %}
+
+      {% if username %}
+        <!-- ✅ Show these ONLY when user IS logged in -->
+        <span class="ml-3 text-gray-500">Hi, {{ username }}</span>
+        <a href="{{ url_for('logout') }}" class="ml-2 text-orange-600 hover:underline">Logout</a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</nav>
+
+
+  <div class="max-w-3xl mx-auto py-10 px-6">
+    <div class="text-center mb-8">
+      <h1 class="text-3xl font-semibold">Movie Recommender (Genre-Based)</h1>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow border border-gray-200 max-w-xl mx-auto">
+      <label class="flex items-center gap-2 text-lg font-medium mb-4">
+        <input type="checkbox" disabled checked class="w-5 h-5 accent-orange-500">
+        Select Preferred Genres
+      </label>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {% for g in genres %}
+        <label class="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-orange-50">
+          <input type="checkbox" class="genre-checkbox w-4 h-4 accent-orange-500" value="{{ g }}">
+          <span class="text-sm">{{ g }}</span>
+        </label>
+        {% endfor %}
+      </div>
+
+      <button id="submitBtn"
+        class="mt-6 w-full sm:w-auto px-6 py-3 bg-orange-500 text-white text-lg rounded-xl hover:bg-orange-600 transition">
+        Submit
+      </button>
+    </div>
+
+    <div class="mt-10">
+      <h2 class="text-xl font-semibold flex items-center gap-2">🎞️ Recommended Movies:</h2>
+
+      <p id="noResultsMsg" class="text-gray-500 mt-3">
+        Select one or more genres and hit Submit to see recommendations.
+      </p>
+
+      <!-- ✅ LOADER INSERTED HERE -->
+      <div id="loader" class="hidden flex justify-center items-center py-10">
+        <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+
+      <!-- ✅ RESULTS -->
+      <div id="recommendations" class="mt-5 space-y-6"></div>
+    </div>
+  </div>
+
+  <script>
+    console.log("JS LOADED ✅");
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+
+    const loader = document.getElementById("loader");
+    const container = document.getElementById("recommendations");
+
+    // ✅ Show the loader
+    loader.classList.remove("hidden");
+    container.innerHTML = "";  // clear previous results
+
+    const selectedGenres = [...document.querySelectorAll(".genre-checkbox:checked")]
+        .map(c => c.value);
+
+    try {
+        const response = await fetch("/api/recommend", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ genres: selectedGenres })
+        });
+
+        const data = await response.json();
+
+        // ✅ Hide the loader
+        loader.classList.add("hidden");
+
+        renderResults(data);
+
+    } catch (err) {
+        console.error(err);
+        loader.classList.add("hidden");
+        container.innerHTML = "<p class='text-red-600'>Something went wrong.</p>";
+    }
+});
+
+    function renderResults(list) {
+      const container = document.getElementById("recommendations");
+      const noMsg = document.getElementById("noResultsMsg");
+      container.innerHTML = "";
+
+      if (list.length === 0) { 
+        noMsg.style.display = "block";
+        return; 
+      }
+
+      noMsg.style.display = "none";
+
+      list.forEach(m => {
+        const genres = (m.predicted_genres || []).join(", ");
+        const rating = m.score ? `⭐ ${m.score}/5.0` : "⭐ 4.0/5.0";
+
+        container.innerHTML += `
+          <div class="p-5 bg-white rounded-xl shadow-sm border border-gray-200">
+            <h3 class="text-lg font-semibold">
+              🎬 ${m.title} — <span class="text-gray-600">${genres}</span>
+            </h3>
+            <p class="text-yellow-600 mt-1">${rating}</p>
+            <p class="mt-2 text-gray-700 leading-relaxed">${m.summary}</p>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
