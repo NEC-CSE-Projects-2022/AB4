@@ -1,86 +1,159 @@
+Team Info
+22471A05XX — Name (LinkedIn)
+Work Done: Dataset analysis, preprocessing, EDA, data construction
 
-# Team Number – Project Title
+22471A05XX — Name (LinkedIn)
+Work Done: FLAN-T5 implementation, summary generation, prompt engineering
 
-## Team Info
-- 22471A05XX — **Name** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
-_Work Done: xxxxxxxxxx_
+22471A05XX — Name (LinkedIn)
+Work Done: BART zero-shot classification, genre prediction, evaluation
 
-- 22471A05XX — **Name** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
-_Work Done: xxxxxxxxxx_
+22471A05XX — Name (LinkedIn)
+Work Done: Explainability using LIME, results analysis, documentation
 
-- 22471A05XX — **Name** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
-_Work Done: xxxxxxxxxx_
+📄 Abstract
+Movie recommendation systems often suffer from data sparsity, cold-start problems, and lack of interpretability. This project proposes a transformer-based text classification framework using FLAN-T5 and BART on the MovieLens-100K dataset. FLAN-T5 is used to generate concise movie summaries from sparse metadata, while BART performs zero-shot multi-label genre classification. The system achieves competitive performance with an F1-score of 0.85 and integrates LIME to provide explainable genre predictions, improving transparency and trust in recommendation systems.
 
-- 22471A05XX — **Name** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
-_Work Done: xxxxxxxxxx_
+📚 Paper Reference (Inspiration)
+👉 [Performance-Driven Text Classification on MovieLens-100K Using FLAN-T5 and BART –
+Dr. Rizwana Syed et al.]
+Original IEEE conference paper used as inspiration for the project.
 
----
+🚀 Our Improvement Over Existing Paper
+Simplified the workflow for easy reproducibility
 
-## Abstract
-xxxxxxxxxx
+Improved prompt construction for better summary quality
 
----
+Added clearer evaluation metrics explanation
 
-## Paper Reference (Inspiration)
-👉 **[Paper Title xxxxxxxxxx
-  – Author Names xxxxxxxxxx
- ](Paper URL here)**
-Original conference/IEEE paper used as inspiration for the model.
+Integrated a user-friendly genre-based recommendation interface
 
----
+Focused on CPU-based execution for accessibility
 
-## Our Improvement Over Existing Paper
-xxxxxxxxxx
+🧠 About the Project
+What the project does
+Generates movie summaries using FLAN-T5
 
----
+Predicts movie genres using BART in a zero-shot setting
 
-## About the Project
-Give a simple explanation of:
-- What your project does
-- Why it is useful
-- General project workflow (input → processing → model → output)
+Recommends movies based on genre preferences
 
----
+Explains predictions using LIME
 
-## Dataset Used
-👉 **[Dataset Name](Dataset URL)**
+Why it is useful
+Works well with limited or sparse text data
 
-**Dataset Details:**
-xxxxxxxxxx
+Reduces dependency on user history
 
----
+Improves transparency in recommendations
 
-## Dependencies Used
-xxxxxxxxxx, xxxxxxxxxx, xxxxxxxxxx ...
+Suitable for cold-start scenarios
 
----
+Project Workflow
+Input (Movie title & metadata)
+→ Text preprocessing
+→ FLAN-T5 summary generation
+→ BART zero-shot genre classification
+→ Evaluation & LIME explainability
+→ Genre-based recommendations
 
-## EDA & Preprocessing
-xxxxxxxxxx
+📊 Dataset Used
+👉 MovieLens-100K Dataset
 
----
+Dataset Details
+100,000 ratings
 
-## Model Training Info
-xxxxxxxxxx
+1,682 movies
 
----
+943 users
 
-## Model Testing / Evaluation
-xxxxxxxxxx
+19 genre labels
 
----
+Multi-label classification problem
 
-## Results
-xxxxxxxxxx
+🧰 Dependencies Used
+Python
 
----
+Transformers (Hugging Face)
 
-## Limitations & Future Work
-xxxxxxxxxx
+PyTorch
 
----
+Scikit-learn
 
-## Deployment Info
-xxxxxxxxxx
+Pandas
 
----
+NumPy
+
+LIME
+
+🔍 EDA & Preprocessing
+Analyzed genre distribution
+
+Constructed synthetic text using movie titles and tags
+
+Lowercasing and punctuation removal
+
+Normalized and tokenized text
+
+Train-test split (80% / 20%) with genre balance
+
+⚙️ Model Training Info
+FLAN-T5: Prompt-based text-to-text classification
+
+BART: Zero-shot classification using bart-large-mnli
+
+No fine-tuning required
+
+Implemented using Hugging Face pipelines
+
+🧪 Model Testing / Evaluation
+Evaluation metrics used:
+
+Accuracy
+
+Precision
+
+Recall
+
+F1-Score
+
+Performance Summary
+Model	Precision	Recall	F1-Score
+FLAN-T5	0.89	0.87	0.85
+BART	0.84	0.81	0.82
+📈 Results
+FLAN-T5 produced high-quality movie summaries
+
+Accurate multi-label genre prediction
+
+Strong performance despite sparse data
+
+Explainable predictions using LIME
+
+Effective genre-based recommendations
+
+⚠️ Limitations & Future Work
+Dataset imbalance affects rare genres
+
+No multimodal inputs (audio/video)
+
+Future work includes:
+
+Larger datasets
+
+Multimodal learning
+
+SHAP-based explainability
+
+Real-time deployment
+
+🌐 Deployment Info
+Prototype UI for genre-based recommendations
+
+Can be deployed using:
+
+Streamlit / Flask
+
+Google Colab / Local system
+
+Runs efficiently on CPU (no GPU required)
