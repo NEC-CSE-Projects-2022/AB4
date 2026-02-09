@@ -1,4 +1,3 @@
-Team Info
 22471A0502 — Atmakuri Jagadeesh
 Work Done: Dataset analysis, preprocessing, EDA, data construction
 
