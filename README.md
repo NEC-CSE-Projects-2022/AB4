@@ -1,14 +1,14 @@
 Team Info
-22471A05XX — Name (LinkedIn)
+22471A0502 — Atmakuri Jagadeesh
 Work Done: Dataset analysis, preprocessing, EDA, data construction
 
-22471A05XX — Name (LinkedIn)
+22471A0552 — Shaik Mohammad Farooq
 Work Done: FLAN-T5 implementation, summary generation, prompt engineering
 
-22471A05XX — Name (LinkedIn)
+22471A0551 — Shaik Madeena Noushik
 Work Done: BART zero-shot classification, genre prediction, evaluation
 
-22471A05XX — Name (LinkedIn)
+22471A0542 — Nalabolu Balakrishna Reddy
 Work Done: Explainability using LIME, results analysis, documentation
 
 📄 Abstract
